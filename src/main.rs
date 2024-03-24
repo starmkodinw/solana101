@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 fn main() {
     println!("Hello, world!");
 
@@ -17,12 +19,149 @@ fn main() {
     let num: i32 = 10;
     println!("Is {} even? {}", num, is_even(num));
 
-
     let mut x: i32 = 10;
     x = double_value(x);
     println!("x: {}", x);
+
+    let mut numbers: &[i32] = &[62, 32, 13, 422, 56];
+    numbers = &numbers[1..2]; // [32]
+    println!("Numbers: {:?}", numbers);
+
+    let mut example_string: String = String::from("Hello, example!");
+    example_string = example_string.replace("example", "world");
+    println!("Replaced String: {}", example_string);
+
+    let age: i32 = 25;
+
+    if age >= 18 {
+        println!("You are an adult.");
+    } else {
+        println!("You are a minor.");
+    }
+
+    for i in 0..5 {
+        println!("Loop iteration: {}", i);
+    }
+
+    let mut count = 0;
+    while count < 5 {
+        println!("Count: {}", count);
+        count += 1;
+        if count == 3 {
+            break;
+        }
+    }
+
+    let number = 5;
+
+    match number {
+        1 => println!("One"),
+        2 => println!("Two"),
+        _ => println!("Other number"),
+    }
+
+    let student = Student::new(String::from("John Doe"), 18, 12);
+    println!("Student name: {}", student.get_name());
+    println!("Student age: {}", student.get_age());
+    println!("Student grade: {}", student.get_grade());
+
+    let mut student2 = Student::new(String::from("Jane Smith"), 17, 11);
+    println!("Student2 name: {}", student2.get_name());
+    println!("Student2 age: {}", student2.get_age());
+    println!("Student2 grade: {}", student2.get_grade());
+
+    student2.set_grade(12);
+    println!("Student2 grade after update: {}", student2.get_grade());
+
+    student.example_method();
+    student2.example_method();
+
+    #[derive(Debug)]
+    enum ExampleEnum {
+        Option1,
+        Option2,
+    }
+
+    let example_enum = ExampleEnum::Option1;
+    let example_enum2 = ExampleEnum::Option2;
+    println!("Example enum: {:?}", example_enum);
+    println!("Example enum2: {:?}", example_enum2);
+
+    let mut example_vector: Vec<i32> = vec![1, 2, 3, 4, 5];
+    println!("Example Vector: {:?}", example_vector);
+    println!("First element: {}", example_vector[0]);
+    println!("Last element: {}", example_vector[example_vector.len() - 1]);
+    println!("Length: {}", example_vector.len());
+    println!("Is empty: {}", example_vector.is_empty());
+    println!("Contains 3: {}", example_vector.contains(&3));
+    // Pushing elements to the vector
+    example_vector.push(6);
+    example_vector.push(7);
+    println!("Updated Vector: {:?}", example_vector);
+
+    // Removing elements from the vector
+    example_vector.remove(2);
+    println!("Updated Vector after removing element at index 2: {:?}", example_vector);
+
+    let mut example_hashmap: HashMap<&str, i32> = HashMap::new();
+    example_hashmap.insert("key1", 10);
+    example_hashmap.insert("key2", 20);
+    example_hashmap.insert("key3", 30);
+    example_hashmap.remove("key1");
+
+    println!("Example Hashmap: {:?}", example_hashmap);
+    println!("Value for key2: {}", example_hashmap.get("key2").unwrap());
+    println!("Is key3 present: {}", example_hashmap.contains_key("key3"));
+    println!("Length: {}", example_hashmap.len());
+    println!("Is empty: {}", example_hashmap.is_empty());
+
+    let result: Option<f64> = divide(10, 2);
+    match result {
+        Some(value) => println!("Result: {}", value),
+        None => println!("Cannot divide by 0"),
+    }
+
+    let result2: Option<f64> = divide(10, 0);
+    match result2 {
+        Some(value) => println!("Result: {}", value),
+        None => println!("Cannot divide by 0"),
+    }
+
+    let result3: Result<f64, MyError> = divide2(10, 2);
+    match result3 {
+        Ok(value) => println!("Result: {}", value),
+        Err(error) => println!("Error: {:?}", error),
+    }
+
+    let result4: Result<f64, MyError> = divide2(10, 0);
+    match result4 {
+        Ok(value) => println!("Result: {}", value),
+        Err(error) => println!("Error: {:?}", error),
+    }
 }
 
+// None is returned if b is 0
+// Some is returned if b is not 0
+fn divide(a: i32, b: i32) -> Option<f64> {
+    if b == 0 {
+        None
+    } else {
+        Some(a as f64 / b as f64)
+    }
+}
+
+#[derive(Debug)]
+enum MyError {
+    DivisionByZero,
+}
+
+fn divide2(a: i32, b: i32) -> Result<f64, MyError> {
+    if b == 0 {
+        Err(MyError::DivisionByZero)
+    } else {
+        Ok(a as f64 / b as f64)
+    }
+}
 
 pub fn is_even(number: i32) -> bool {
     number % 2 == 0
@@ -30,4 +169,46 @@ pub fn is_even(number: i32) -> bool {
 
 fn double_value(number: i32) -> i32 {
     number * 2
+}
+
+struct Student {
+    name: String,
+    age: u32,
+    grade: u32,
+}
+
+impl Student {
+    fn new(name: String, age: u32, grade: u32) -> Self {
+        Student {
+            name,
+            age,
+            grade,
+        }
+    }
+
+    fn get_name(&self) -> &str {
+        &self.name
+    }
+
+    fn get_age(&self) -> u32 {
+        self.age
+    }
+
+    fn get_grade(&self) -> u32 {
+        self.grade
+    }
+
+    fn set_grade(&mut self, grade: u32) {
+        self.grade = grade;
+    }
+}
+
+trait ExampleTrait {
+    fn example_method(&self);
+}
+
+impl ExampleTrait for Student {
+    fn example_method(&self) {
+        println!("Example method implementation for Student {} ", self.name);
+    }
 }
