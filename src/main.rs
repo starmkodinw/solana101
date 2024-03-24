@@ -16,9 +16,18 @@ fn main() {
 
     let num: i32 = 10;
     println!("Is {} even? {}", num, is_even(num));
+
+
+    let mut x: i32 = 10;
+    x = double_value(x);
+    println!("x: {}", x);
 }
 
 
 pub fn is_even(number: i32) -> bool {
     number % 2 == 0
+}
+
+fn double_value(number: i32) -> i32 {
+    number * 2
 }
