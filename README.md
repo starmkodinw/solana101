@@ -1,5 +1,6 @@
 solana101
 
+- rustc --version
 - rustc main.rs <!-- build -->
 - Cargo.toml เหมือน package.json
 - cargo new hello
@@ -12,8 +13,11 @@ solana101
 - impl = implement หมายถึง การนำเสนอ methods, functions หรือ trait ให้ struct
 - trait คล้ายๆ interface
 - serialize = แปลง struct <=> (json, xml, protobuf)
+- Crate (เคลท = ลัง) ใน Rust หมายถึง Package หรือ Library ที่ใช้สำหรับแบ่งปันโค้ดกับผู้อื่น
+- Borsh เป็น crate ในภาษา Rust ที่ใช้สำหรับ serialization และ deserialization ของข้อมูล
 - solana validator node setup
     sh -c "$(curl -sSfL https://release.solana.com/v1.18.4/install)"
+    solana-install update
     solana --version
     solana config set --url localhost
     solana-test-validator
