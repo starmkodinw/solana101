@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use serde::{Deserialize, Serialize};
 
 fn main() {
     println!("Hello, world!");
@@ -101,7 +102,10 @@ fn main() {
 
     // Removing elements from the vector
     example_vector.remove(2);
-    println!("Updated Vector after removing element at index 2: {:?}", example_vector);
+    println!(
+        "Updated Vector after removing element at index 2: {:?}",
+        example_vector
+    );
 
     let mut example_hashmap: HashMap<&str, i32> = HashMap::new();
     example_hashmap.insert("key1", 10);
@@ -138,6 +142,27 @@ fn main() {
         Ok(value) => println!("Result: {}", value),
         Err(error) => println!("Error: {:?}", error),
     }
+
+    let person = Person {
+        name: "John Doe".to_string(),
+        age: 30,
+    };
+
+   
+    // Serialize to JSON
+    let json = serde_json::to_string(&person).unwrap();
+    println!("{}", json);
+
+    // Deserialize from JSON
+    let person: Person = serde_json::from_str(&json).unwrap();
+    println!("Name: {}", person.name);
+    println!("Age: {}", person.age);
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Person {
+    name: String,
+    age: u32,
 }
 
 // None is returned if b is 0
@@ -179,11 +204,7 @@ struct Student {
 
 impl Student {
     fn new(name: String, age: u32, grade: u32) -> Self {
-        Student {
-            name,
-            age,
-            grade,
-        }
+        Student { name, age, grade }
     }
 
     fn get_name(&self) -> &str {
