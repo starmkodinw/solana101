@@ -36,3 +36,6 @@ solana101
         fn main() {
             let x = 5;  // x ถูกประกาศภายในฟังก์ชัน main หลังจากปิดฟังก์ชัน main ตัวแปร x จะถูกเคลียร์
         }
+- stack auto clear memory
+- heap auto clear memory ด้วยเมื่อ out of scope (บางภาษาไม่ clear ต้องรอ GC มาจัดการ)
+- let n1 = Box::new(1) เก็บค่า 1 ลงใน heap, n1 ชี้ไปที่ address ของ heap
