@@ -27,6 +27,10 @@ fn main() {
     // drop(s4); //ไม่สามารถ drop heap ได้ เพราะไม่ใช่ owner
     drop(s3); //drop heap ได้
 
+    let s5 = String::from("abc");
+    let s6 = s5;
+    drop(s6); // drop ได้ เพราะ owner ถูกโอนมาให้ s6 แล้ว
+
     let mut x2 = 10;
     let y2 = &mut x2;
     *y2 = 20;
