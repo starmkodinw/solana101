@@ -1,7 +1,24 @@
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
+fn triple(num:&mut i32) {
+    *num *=3;
+}
+
 fn main() {
+    let mut x = 10;
+    let y = x;  // copy by value, memory address y กับ x เป็นคนละอัน
+    x = 20;
+    println!("x : {}, y : {}", x, y); //20 10
+
+    let mut x2 = 10;
+    let y2 = &mut x2;
+    *y2 = 20;
+    // println!("{}", x2); //cannot borrow เพราะ y2 ยังใช้ไม่จบ => แก้โดยใช้ y2 ให้จบก่อน
+    triple(y2);
+    println!("{}", *y2);
+    println!("{}", x2); // OK : เพราะ y2 ใช้จบแล้ว
+
     println!("Hello, world!");
 
     let number: i32 = 42;

@@ -28,3 +28,11 @@ solana101
     <!-- change phantom to local network -->
     solana airdrop 1 EoiXutDVt6wRvq8HWtyDtePbbzaTpVQRRCjTWgPiYLSt
     solana balance EoiXutDVt6wRvq8HWtyDtePbbzaTpVQRRCjTWgPiYLSt
+- Ownership rules
+    1. value จะมี owner เพียงอันเดียว
+        let x = 5; // x เป็นเจ้าของค่า 5
+    2. value มี owner ได้เพียงอันเดียวเท่านั้นในเวลาใดเวลาหนึ่ง - เมื่อย้ายข้อมูลไปยังตัวแปรอื่น เจ้าของเดิมจะถูกยกเลิก
+    3. เมื่อ owner out of scope จะถูก dropped
+        fn main() {
+            let x = 5;  // x ถูกประกาศภายในฟังก์ชัน main หลังจากปิดฟังก์ชัน main ตัวแปร x จะถูกเคลียร์
+        }
