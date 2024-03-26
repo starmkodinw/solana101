@@ -46,3 +46,5 @@ solana101
 - Array fixed size
 - Collection (vec) ไม่ fixed size
 - สร้างพวก module ต่างๆในไฟล์ lib.rs เช่น struct แล้วประกาศแบบ pub เพื่อให้เรียกใช้ได้
+- Closures เหมือน anonymouse function
+    let x = |a: i32, b: i32| { a+b };

@@ -216,6 +216,104 @@ fn main() {
     let person: Person = serde_json::from_str(&json).unwrap();
     println!("Name: {}", person.name);
     println!("Age: {}", person.age);
+
+    // codebangkok
+    let x = check_grade(-1);
+    match x {
+        GradeResult::Error(e) => println!("{}", e),
+        GradeResult::Value(g) => println!("{}", g),
+    }
+
+    let x = check_grade2(-1);
+    match x {
+        None => println!("error"),
+        Some(v) => println!("{}", v),
+    }
+
+    let x = check_grade3(-1);
+    match x {
+        Err(e) => println!("{}", e),
+        Ok(v) => println!("{}", v),
+    }
+
+    let x = check_grade3(100);
+    if x.is_err() {
+        return;
+    }
+    let y = x.unwrap();
+    println!("{}", y);
+
+    let x = check_grade3(100);
+    if let Ok(v) = x {
+        println!("{}", v);
+    }
+
+    let x = check_grade3(100);
+    let y = match x {
+        Err(e) => {
+            println!("{}", e);
+            return;
+        }
+        Ok(v) => v,
+    };
+    println!("{}", y);
+
+    //Closures
+    let x = add(10, 20);
+    println!("x: {}", x);
+    let x = |a, b| a + b;
+    let y = x(10, 20);
+    println!("y: {}", y);
+    let y = cal(10, 20, x);
+    println!("y: {}", y);
+    let y = cal(10, 20, |a, b| a - b);
+    println!("y: {}", y);
+    let y = cal2(10, 20, add);
+    println!("y: {}", y);
+}
+
+fn cal<F: Fn(i32, i32) -> i32>(a: i32, b: i32, f: F) -> i32 {
+    f(a, b)
+}
+
+fn cal2<F>(a: i32, b: i32, f: F) -> i32
+where
+    F: Fn(i32, i32) -> i32,
+{
+    f(a, b)
+}
+
+fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+fn check_grade(score: i32) -> GradeResult {
+    if score < 0 || score > 100 {
+        return GradeResult::Error("score is not correct".to_string());
+    }
+
+    GradeResult::Value("A".to_string())
+}
+
+fn check_grade2(score: i32) -> Option<String> {
+    if score < 0 || score > 100 {
+        return None;
+    }
+
+    Some("A".to_string())
+}
+
+fn check_grade3(score: i32) -> Result<String, String> {
+    if score < 0 || score > 100 {
+        return Err("score is not correct".to_string());
+    }
+
+    Ok("A".to_string())
+}
+
+enum GradeResult {
+    Value(String),
+    Error(String),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
