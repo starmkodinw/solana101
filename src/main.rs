@@ -10,10 +10,28 @@ fn hello(name: String) {
 }
 
 fn main() {
+    let (xx1, yy1) = (10, 20);
+    const PI: f64 = 3.14;
+    println!("{} {} {}", xx1, yy1, PI);
+
+    // Tuple
+    let g: (i32, i32, i32) = (1, 2, 3);
+    println!("{} {} {}", g.0, g.1, g.2);
+
     let mut x = 10;
     let y = x;  // copy by value, memory address y กับ x เป็นคนละอัน
     x = 20;
     println!("x : {}, y : {}", x, y); //20 10
+
+    let array_x = [1, 2, 3, 4, 5];
+    for i in array_x.iter() {
+        println!("{}", i);
+    }
+
+    let book = hello::Book {
+        name: String::from("Rust Programming"),
+    };
+    println!("Book name: {}", book.name);
 
     let s1 = String::from("abc");
     let s2 = s1;    // memory s2 = s1 มันคือการ copy owner, จะใช้ s1 ไม่ได้แล้ว แต่ยังไม่ถูกทำลาย

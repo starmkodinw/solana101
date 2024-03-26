@@ -43,3 +43,6 @@ solana101
 - String
     stack เก็บ address ของ heap, cap, len
     heap เก็บ ค่าของ string
+- Array fixed size
+- Collection (vec) ไม่ fixed size
+- สร้างพวก module ต่างๆในไฟล์ lib.rs เช่น struct แล้วประกาศแบบ pub เพื่อให้เรียกใช้ได้
