@@ -5,11 +5,27 @@ fn triple(num:&mut i32) {
     *num *=3;
 }
 
+fn hello(name: String) {
+    println!("{}", name);
+}
+
 fn main() {
     let mut x = 10;
     let y = x;  // copy by value, memory address y กับ x เป็นคนละอัน
     x = 20;
     println!("x : {}, y : {}", x, y); //20 10
+
+    let s1 = String::from("abc");
+    let s2 = s1;    // memory s2 = s1 มันคือการ copy owner, จะใช้ s1 ไม่ได้แล้ว แต่ยังไม่ถูกทำลาย
+    // println!("{}", s1); // error : borrow of moved value: `s1`
+    hello(s2); // โยน owner ไปให้ name แล้ว จะใช้ s2 อีกไม่ได้
+    // println!("{}", s2); // error : borrow of moved value: `s2`
+
+    let s3 = String::from("abcdef");
+    let s4 = &s3;
+    println!("{}", s4);
+    // drop(s4); //ไม่สามารถ drop heap ได้ เพราะไม่ใช่ owner
+    drop(s3); //drop heap ได้
 
     let mut x2 = 10;
     let y2 = &mut x2;
