@@ -1,3 +1,7 @@
+use hello::{
+    book::Book,
+    // customer::Customer,
+};
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
@@ -28,7 +32,7 @@ fn main() {
         println!("{}", i);
     }
 
-    let book = hello::Book {
+    let book = Book {
         name: String::from("Rust Programming"),
     };
     println!("Book name: {}", book.name);

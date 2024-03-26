@@ -1,3 +1,2 @@
-pub struct Book {
-    pub name: String,
-}
+pub mod book;
+pub mod customer;
