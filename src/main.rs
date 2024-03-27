@@ -1,6 +1,7 @@
 use hello::{
     book::Book,
     // customer::Customer,
+    http::Server
 };
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
@@ -14,6 +15,11 @@ fn hello(name: String) {
 }
 
 fn main() {
+    let server = Server::new("127.0.0.1:8000".to_string());
+    if let Err(e) = server.run() {
+        println!("{}", e);
+    }
+
     let (xx1, yy1) = (10, 20);
     const PI: f64 = 3.14;
     println!("{} {} {}", xx1, yy1, PI);

@@ -48,3 +48,4 @@ solana101
 - สร้างพวก module ต่างๆในไฟล์ lib.rs เช่น struct แล้วประกาศแบบ pub เพื่อให้เรียกใช้ได้
 - Closures เหมือน anonymouse function
     let x = |a: i32, b: i32| { a+b };
+- ? ช่วยในการ throw error ออกไปนอก function แทนที่จะ match, ทำให้โค้ดสั้น อ่านง่ายขึ้น
