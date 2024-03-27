@@ -220,7 +220,7 @@ fn main() {
 
     // Deserialize from JSON
     let person: Person = serde_json::from_str(&json).unwrap();
-    println!("Name: {}", person.name);
+    println!("{:#?}", person);
     println!("Age: {}", person.age);
 
     // codebangkok
