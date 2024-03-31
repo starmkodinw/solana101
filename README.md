@@ -21,6 +21,7 @@ solana101
     solana --version
     solana config set --url localhost
     solana config set --url devnet
+    solana config get
     solana-test-validator
     solana-keygen new -o /Users/tanaponinprasit/.config/solana/id.json
     solana account
