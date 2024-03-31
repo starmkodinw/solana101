@@ -11,11 +11,11 @@ import {
   Transaction,
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
-import fs from 'mz/fs';
-import path from 'path';
+import { promises as fs } from 'fs';
+import * as path from 'path'
 import * as borsh from 'borsh';
 
-import {getPayer, getRpcUrl, createKeypairFromFile} from './utils';
+import { getPayer, getRpcUrl, createKeypairFromFile } from './utils';
 
 /**
  * Connection to the network
@@ -148,7 +148,7 @@ export async function checkProgram(): Promise<void> {
   // Check if the program has been deployed
   const programInfo = await connection.getAccountInfo(programId);
   if (programInfo === null) {
-    if (fs.existsSync(PROGRAM_SO_PATH)) {
+    if (fs.access(PROGRAM_SO_PATH)) {
       throw new Error(
         'Program needs to be deployed with `solana program deploy dist/program/helloworld.so`',
       );

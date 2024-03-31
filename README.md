@@ -20,6 +20,7 @@ solana101
     solana-install update
     solana --version
     solana config set --url localhost
+    solana config set --url devnet
     solana-test-validator
     solana-keygen new -o /Users/tanaponinprasit/.config/solana/id.json
     solana account
@@ -28,6 +29,7 @@ solana101
     <!-- change phantom to local network -->
     solana airdrop 1 EoiXutDVt6wRvq8HWtyDtePbbzaTpVQRRCjTWgPiYLSt
     solana balance EoiXutDVt6wRvq8HWtyDtePbbzaTpVQRRCjTWgPiYLSt
+    solana program deploy ./dist/program/helloworld.so
 - Ownership rules
     1. value จะมี owner เพียงอันเดียว
         let x = 5; // x เป็นเจ้าของค่า 5

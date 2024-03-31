@@ -13,14 +13,14 @@ edition = "2018"
 no-entrypoint = []
 
 [dependencies]
-borsh = "0.9.3"
-borsh-derive = "0.10.0"
-solana-program = "~1.10.35"
+borsh = "1.4.0"
+borsh-derive = "1.4.0"
+solana-program = "1.18.9"
 getrandom = { version = "0.2.2", features = ["custom"] }
 
 [dev-dependencies]
-solana-program-test = "~1.10.35"
-solana-sdk = "~1.10.35"
+solana-program-test = "1.18.9"
+solana-sdk = "1.18.9"
 
 [lib]
 name = "helloworld"
