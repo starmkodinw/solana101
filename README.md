@@ -52,3 +52,10 @@ solana101
 - Closures เหมือน anonymouse function
     let x = |a: i32, b: i32| { a+b };
 - ? ช่วยในการ throw error ออกไปนอก function แทนที่จะ match, ทำให้โค้ดสั้น อ่านง่ายขึ้น
+- Stack เข้าถึงได้เร็ว, หน่วยความจำคงที่ (fixed size) เช่น &str, Array
+- Heap เข้าถึงได้ช้า, ขยาย/ลด ขนาดของข้อมูลได้อย่างอิสระ เช่น String, Vec
+- Stack ทำงานอย่างไร
+    การทำงานของ stack ประกอบไปด้วย 2 ส่วน คือ stack frame และ stack pointer
+    - 1. Stack frame คือ พื้นที่ใน stack ที่ OS จองให้กับแต่ละ function ที่ถูกเรียกใช้ในโปรแกรมของเรา โดยขนาดของ stack frame จะมีค่าเท่ากับขนาดของตัวแปรทั้งหมดที่ใช้ใน function และข้อมูลจิปาถะอื่นๆ (return_address) ที่ CPU ต้องการจาก function นั้น พื้นที่ใน stack frame จะถูกจองแบบพอดีเป๊ะกับที่ function ต้องใช้
+    - 2. Stack pointer (SP) มีหน้าที่ชี้ไปยัง stack frame ล่าสุดที่ OS เพิ่งจองให้ เนื่องจาก stack frame จะมีการสร้างเพิ่ม หรือ ลบออก ตามการเรียกใช้งาน function อยู่ตลอด จึงต้องมี stack pointer ในการชี้ไปยัง stack frame ล่าสุดที่กำลังทำงานอยู่ เพื่อให้ CPU เก็บข้อมูลได้ง่ายและรวดเร็ว
+- return_address เป็น pointer มีขนาด 8 Byte คือ ตำแหน่งของฟังก์ชันก่อนหน้า ที่จะกลับไป หลังจากจบการทำงานของฟังก์ชันปัจจุบัน
