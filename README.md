@@ -11,7 +11,18 @@ solana101
 - let mut x: i32 = 10; <!-- mut = mutable = เปลี่ยนค่าได้ -->
 - Struct เหมือน golang
 - impl = implement หมายถึง การนำเสนอ methods, functions หรือ trait ให้ struct
-- trait คล้ายๆ interface
+- trait (ลักษณะนิสัย) คล้ายๆ interface, มอง trait เป็น skill
+-   
+    trait Sayable {
+        fn say(&self) -> String;
+    }
+
+    // เพิ่ม Sayable skill ให้ Animal
+    impl Sayable for Animal {
+        fn say(&self) -> String {
+            "meow!".to_owned() // convert &str to String.
+        }
+    }
 - serialize = แปลง struct <=> (json, xml, protobuf)
 - Crate (เคลท = ลัง) ใน Rust หมายถึง Package หรือ Library ที่ใช้สำหรับแบ่งปันโค้ดกับผู้อื่น
 - Borsh เป็น crate ในภาษา Rust ที่ใช้สำหรับ serialization และ deserialization ของข้อมูล
