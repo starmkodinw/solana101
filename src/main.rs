@@ -15,13 +15,28 @@ fn hello(name: String) {
 }
 
 fn main() {
+    // book.gist =========
+    
+    // {0} mean param_0.
+    // {1} mean param_1.
+    // # mean pretty print.
+    // ? mean debug.
+    let mut count = 1;
+    
+    for _i in 0..8 { // _i mean we won't use i
+        count += 1;
+    }
+    
+    println!("2. {0} = {1:#?} ----- {count}", "count", count);
+
+    // ===================
     let server = Server::new("127.0.0.1:8000".to_string());
     if let Err(e) = server.run() {
         println!("{}", e);
     }
 
-    let (xx1, yy1) = (10, 20);
-    const PI: f64 = 3.14;
+    let (xx1, yy1) = (10, 20); //implicit literal
+    const PI: f64 = 3.14;   //explicit literal
     println!("{} {} {}", xx1, yy1, PI);
 
     // Tuple
