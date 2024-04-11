@@ -79,3 +79,11 @@ solana101
     2. ด้านการเข้าถึงข้อมูล
         heap จะอยู่อย่างกระจัดกระจาย เวลาเข้าถึงค่าต่างๆ ต้องเดินทางข้ามไปมาค่อนข้างไกล
         stack จะอยู่ติดกันเป็นก้อนต่อเนื่อง ระยะทางจึงสั้นกว่า
+- dyn = dynamic
+- Supertraits
+- <T: Learner> = Generic Bounds
+- <T: Human + Learner> = Multiple bounds
+- () Parentheses
+- [] Square Brackets
+- {} Curly Braces
+- <> Angle Brackets
