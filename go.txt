@@ -1,0 +1,68 @@
+effective-go
+
+- Mutex = mutual exclusion => mutual = ซึ่งกันและกัน, exclusion = ละเว้น
+- RLock() กับ RUnlock() for read only => คนที่ขอ RLock() เหมือนกันทำงานพร้อมกันได้
+- Memory leak ไม่สามารถปล่อยหน่วยความจำที่ไม่ใช้งานแล้วได้ => mem เพิ่มขึ้นเรื่อยๆ
+- Dangling pointers คือตัวแปรพอยน์เตอร์ ที่ไม่ได้ชี้ไปยังออบเจ็กต์ ชี้ไปยังหน่วยความจำที่ว่างเปล่า => crash, memory leak
+- rune alias ของ int32 ใช้แทนค่า Unicode code point เก็บตัวอักษร สัญลักษณ์ หรือ emoji ทีละตัว => 'a' : U+0061
+- string เก็บชุดของ rune
+- Address ตำแหน่งใน memory, ตัวแปรทุกตัวจะมี address
+- Pointer เก็บ address ของข้อมูลอื่น => Dereferencing pointer เพื่อเข้าถึงค่า
+- channel = mechanism for concurrent to communicated by sending & receiving
+- Array = immutable => โดยทั่วไป ไม่ เกิด race condition
+- Slice = mutable => อาจ เกิด race condition
+- Underlying type คือ type พื้นฐานที่ใช้สร้าง type ใหม่ 
+    => int8 เป็น underlying type ของ byte
+    => int32 เป็น underlying type ของ rune
+- variadic parameter => func printArgs(args ...string) {}
+- Explicit literal ระบุ type ชัดเจน -> var age int = 25
+- Implicit literal compiler ตีความให้ -> var price = 100
+- Composite literal เป็น syntax สำหรับการสร้าง struct, array, slice, map และอื่นๆ โดยไม่ต้องระบุ type
+    person := struct { name string}{ name: "John Doe" } // struct
+    fruits := []string{"apple", "banana", "orange"} // slice
+    ages := map[string]int{"John Doe": 30}  // map
+- Function literal = anonymous function
+- Selectors เครื่องมือ เลือก sub ข้อมูล => Ex. Range, Index, Key-value selector
+- Method expressions ใช้เรียก method ของ struct โดยไม่ต้องระบุชื่อ struct
+- Go does not have classes. However, you can define methods on types. // func (p Person) HelloWorld() string { return "HelloWorld!" }
+- Method is just a function with a receiver argument.
+- a[2:]  // same as a[2 : len(a)]
+- a[:3]  // same as a[0 : 3] => a := []int{6, 14, 457, 888, 2} => a[:3] = [6 14 457]
+- a[:] ดึงค่าทั้งหมด  // same as a[0 : len(a)]
+- Simple slice => a[low : high]
+- Full slice => a[low : high : max]
+- Type inference = compiler อนุมาน type ของตัวแปรได้โดยอัตโนมัติ => num := 7 //num: int
+- Type unification = compiler แปลง ให้เป็น type เดียวกัน เพื่อใช้ใน operation หรือ assignment => num := 1 + 2.5
+- Implicit conversions แปลงค่าโดยอัตโนมัติ โดย compiler
+- Explicit conversions แปลงค่าโดยใช้ ตัวดำเนินการ conversion
+- << (shift left), >> (shift right) 
+    x := 1; x <<= 1;     //x = 2
+    x := 4; x >>= 2;     //x = 1
+- blank identifier => x, _ = f()
+- Go 1.22 each iteration has its own set of iteration variables
+- len จำนวน element
+- cap จำนวนสูงสุดที่เก็บได้
+- e 
+    1e1 = 10 //1 * 10^1
+    50e-2 = 0.5 //50 * 10^(-2)
+- recover จัดการกับ panic, ควรใช้คู่กับ defer
+- Type assertions แปลง จาก type หนึ่งไปยังอีก type หนึ่ง, ใช้ ok เพื่อตรวจสอบว่าการแปลงประสบความสำเร็จหรือไม่
+    var i interface{} = "hello"
+    s, ok := i.(string) //hello true
+    f, ok := i.(float64) //0 false
+	f = i.(float64) // panic: interface conversion
+- goroutine is a lightweight thread managed by the Go runtime.
+    Thread คือ หน่วยการทำงานย่อยภายใน Process, worker หลายคนทำงานพร้อมกันในออฟฟิศเดียว, ช่วยให้การทำงานเสร็จเร็วขึ้น โดยเฉพาะงานที่สามารถแบ่งย่อยได้
+    Go runtime จัดการทรัพยากรระบบ, ควบคุมการทำงานของโปรแกรม => manage memory, scheduling ของ Goroutines, GC, I/O, runtime errors
+- Interpreted:
+    โปรแกรมจะถูกแปลทีละบรรทัด โดย interpreter ในขณะที่โปรแกรมกำลังทำงาน
+    โปรแกรมไม่จำเป็นต้องถูก compile ก่อนที่จะรัน
+    ภาษา interpreted เช่น Python, JavaScript, Ruby
+- Compiled:
+    โปรแกรมจะถูก compile เป็น machine code ก่อนที่จะรัน
+    โปรแกรมที่ compile จะทำงานได้เร็วกว่า โปรแกรมที่ interpreted
+    ภาษา compiled เช่น Golang, C, C++, Java
+    เหมาะสำหรับการพัฒนาโปรแกรม ที่ต้องการประสิทธิภาพสูง
+- overflow ไม่ panic แต่จะ wrap
+		var num int8 = 127
+		num++ // num จะกลายเป็น -128 แทนที่จะ panic
