@@ -2,10 +2,13 @@ solana101
 
 - rustc --version
 - rustc main.rs <!-- build -->
+- `#![feature]` may not be used on the stable release channel -> rm -rf target
 - Cargo.toml เหมือน package.json
+- cargo --version
 - cargo new hello
 - cargo build
 - cargo run
+- cargo bench
 - cargo add serde
 - serde_json = "1.0.79" <!-- ยัดลงตรงๆใน Cargo.toml -->
 - let mut x: i32 = 10; <!-- mut = mutable = เปลี่ยนค่าได้ -->
