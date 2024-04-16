@@ -90,3 +90,7 @@ solana101
 - [] Square Brackets
 - {} Curly Braces
 - <> Angle Brackets
+- chars use 4 bytes of memory
+    Basic need 1 out of 4 bytes: a b 1 2 + - = $ @
+    German Umlauts or accents need 2 out of 4 bytes: ä ö ü ß è é à ñ
+    Korean, Japanese or Chinese need 3 or 4 bytes: 国 안 녕
