@@ -95,3 +95,4 @@ solana101
     German Umlauts or accents need 2 out of 4 bytes: ä ö ü ß è é à ñ
     Korean, Japanese or Chinese need 3 or 4 bytes: 国 안 녕
 - Type inference = ไม่ระบุ type แต่ compiler รู้ได้เอง
+- The -> called a "skinny arrow"

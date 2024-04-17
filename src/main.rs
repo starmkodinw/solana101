@@ -5,37 +5,67 @@ extern crate test;
 use hello::{
     book::Book,
     // customer::Customer,
-    http::Server
+    http::Server,
 };
-use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
-fn triple(num:&mut i32) {
-    *num *=3;
+fn triple(num: &mut i32) {
+    *num *= 3;
 }
 
 fn hello(name: String) {
     println!("{}", name);
 }
 
+fn print_type_of<T>(_: T) {
+    println!("{}", std::any::type_name::<T>())
+}
+
 fn main() {
     let slice = "Hello!";
-    println!("{} is {} bytes and also {} characters.", slice, slice.len(), slice.chars().count());
+    println!(
+        "{} is {} bytes and also {} characters.",
+        slice,
+        slice.len(),
+        slice.chars().count()
+    );
     let slice2 = "안녕!";
-    println!("{} is {} bytes but only {} characters.", slice2, slice2.len(), slice2.chars().count());
+    println!(
+        "{} is {} bytes but only {} characters.",
+        slice2,
+        slice2.len(),
+        slice2.chars().count()
+    );
+
+    println!(
+        "The smallest i8 is {} and the biggest i8 is {}.",
+        i8::MIN,
+        i8::MAX
+    );
+
+    // r# makes it easier for humans to read.
+    println!("He said, \"You can find the file at c:\\files\\my_documents\\file.txt.\" Then I found the file.");
+    println!(
+        r#"He said, "You can find the file at c:\files\my_documents\file.txt." Then I found the file."#
+    );
+
+    print_type_of("행"); //&str
+    print_type_of('행'); //char
 
     // book.gist =========
-    
+
     // {0} mean param_0.
     // {1} mean param_1.
     // # mean pretty print.
     // ? mean debug.
     let mut count = 1;
-    
-    for _i in 0..8 { // _i mean we won't use i
+
+    for _i in 0..8 {
+        // _i mean we won't use i
         count += 1;
     }
-    
+
     println!("2. {0} = {1:#?} ----- {count}", "count", count);
 
     // ===================
@@ -45,7 +75,7 @@ fn main() {
     }
 
     let (xx1, yy1) = (10, 20); //implicit literal
-    const PI: f64 = 3.14;   //explicit literal
+    const PI: f64 = 3.14; //explicit literal
     println!("{} {} {}", xx1, yy1, PI);
 
     // Tuple
@@ -53,7 +83,7 @@ fn main() {
     println!("{} {} {}", g.0, g.1, g.2);
 
     let mut x = 10;
-    let y = x;  // copy by value, memory address y กับ x เป็นคนละอัน
+    let y = x; // copy by value, memory address y กับ x เป็นคนละอัน
     x = 20;
     println!("x : {}, y : {}", x, y); //20 10
 
@@ -68,10 +98,10 @@ fn main() {
     println!("Book name: {}", book.name);
 
     let s1 = String::from("abc");
-    let s2 = s1;    // memory s2 = s1 มันคือการ copy owner, จะใช้ s1 ไม่ได้แล้ว แต่ยังไม่ถูกทำลาย
-    // println!("{}", s1); // error : borrow of moved value: `s1`
+    let s2 = s1; // memory s2 = s1 มันคือการ copy owner, จะใช้ s1 ไม่ได้แล้ว แต่ยังไม่ถูกทำลาย
+                 // println!("{}", s1); // error : borrow of moved value: `s1`
     hello(s2); // โยน owner ไปให้ name แล้ว จะใช้ s2 อีกไม่ได้
-    // println!("{}", s2); // error : borrow of moved value: `s2`
+               // println!("{}", s2); // error : borrow of moved value: `s2`
 
     let s3 = String::from("abcdef");
     let s4 = &s3;
@@ -237,7 +267,6 @@ fn main() {
         age: 30,
     };
 
-   
     // Serialize to JSON
     let json = serde_json::to_string(&person).unwrap();
     println!("{}", json);
@@ -300,6 +329,14 @@ fn main() {
     println!("y: {}", y);
     let y = cal2(10, 20, add);
     println!("y: {}", y);
+
+    concat_first(10);
+    concat_first2(10);
+    concat_first3(10);
+    concat_second(10);
+    concat_third(10);
+    concat_fourth(10);
+    triple2(10);
 }
 
 fn cal<F: Fn(i32, i32) -> i32>(a: i32, b: i32, f: F) -> i32 {
@@ -421,10 +458,8 @@ impl ExampleTrait for Student {
     }
 }
 
-
-
 // most trivial: iterate over nums,
-// convert nums to string and push 
+// convert nums to string and push
 // them to final result string.
 fn concat_first(val: i64) -> String {
     let mut result = String::new();
@@ -459,7 +494,7 @@ fn concat_first3(val: i128) -> String {
 // pre-decide the size of final result string.
 fn concat_second(val: i64) -> String {
     let length: usize = val.to_string().len();
-    let capacity: usize = (val-1) as usize * length;
+    let capacity: usize = (val - 1) as usize * length;
 
     let mut result = String::with_capacity(capacity);
 
@@ -479,10 +514,9 @@ fn concat_third(val: i64) -> String {
         vec.push(i)
     }
 
-    vec.iter().fold(
-        String::new(),
-        |accumulator, s| format!("{}{}", accumulator, s)
-    )
+    vec.iter().fold(String::new(), |accumulator, s| {
+        format!("{}{}", accumulator, s)
+    })
 }
 
 // heaplessly converting numbers into their string
@@ -491,7 +525,7 @@ fn concat_fourth(val: i64) -> String {
 
     let mut buffer = [0u8; 20];
     let length: usize = val.to_string().len();
-    let capacity: usize = (val-1) as usize * length;
+    let capacity: usize = (val - 1) as usize * length;
     let mut result = String::with_capacity(capacity);
 
     for i in 0..val {
@@ -505,7 +539,7 @@ fn triple2(num: i32) -> i32 {
     let t = time::Duration::from_nanos(50);
     thread::sleep(t);
     let result = num * 3;
-    return  result
+    return result;
 }
 
 // discussion: https://www.reddit.com/r/learnrust/comments/bjyrgf/feedback_on_blogpost/
