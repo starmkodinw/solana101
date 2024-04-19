@@ -56,6 +56,12 @@ fn main() {
             }
         }
     }
+
+    // mod ด้วย 10**place แล้วหารด้วย 10**(place-1) จะได้เลขโดด ของแต่ละ place
+    println!("{} => {} หลักหน่วย (place 1)", x , (x as i64 % i64::pow(10, (1) as u32)) / i64::pow(10, (0) as u32));
+    println!("{} => {} หลักสิบ (place 2)", x , (x as i64 % i64::pow(10, (2) as u32)) / i64::pow(10, (1) as u32));
+    println!("{} => {} หลักร้อย (place 3)", x , (x as i64 % i64::pow(10, (3) as u32)) / i64::pow(10, (2) as u32));
+    println!("{} => {} หลักพัน (place 4)", x , (x as i64 % i64::pow(10, (4) as u32)) / i64::pow(10, (3) as u32));
     println!("result : {} {}", result, place);
 
     let slice = "Hello!";
