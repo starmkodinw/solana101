@@ -96,3 +96,39 @@ solana101
     Korean, Japanese or Chinese need 3 or 4 bytes: 国 안 녕
 - Type inference = ไม่ระบุ type แต่ compiler รู้ได้เอง
 - The -> called a "skinny arrow"
+- ::<i32> "turbofish syntax", because ::<> looks like a fish.
+- Macros ช่วยให้ โค้ดที่สั้นลง และอ่านง่ายขึ้น
+    In fact, println is a macro (1 = 2)
+    1.  use std::io::{self, Write};
+        io::stdout().lock().write_all(b"Hello there!\n").unwrap();
+    2.  println!("{}", "Hello there!");
+- The lifetime of a reference cannot exceed the lifetime of the variable binding it borrows
+    let x_ref = {
+        let x = 42;
+        &x
+    };
+    println!("x_ref = {}", x_ref); // error: `x` does not live long enough
+- input lifetime, it doesn't need to be named, so the two functions below are equivalent
+    fn number_value<'a>(num: &'a Number) -> &'a i32 {
+        &num.value
+    }
+    fn number_value(num: &Number) -> &i32 {
+        &num.value
+    }
+- Borrowing rules
+    1. A variable binding can be immutably borrowed multiple times:
+        let x = 42;
+        let x_ref1 = &x;
+        let x_ref2 = &x;
+        let x_ref3 = &x;
+        println!("{} {} {}", x_ref1, x_ref2, x_ref3);
+    2. While borrowed, a variable binding cannot be mutated: (ต้องใช้ x_ref ให้เสร็จก่อน ถึงจะกลับมาใช้ x ได้)
+        let mut x = 42;
+        let x_ref = &x;
+        x = 13;
+        println!("x_ref = {}", x_ref); // error: cannot assign to `x` because it is borrowed
+    3. While immutably borrowed, a variable cannot be mutably borrowed:
+        let mut x = 42;
+        let x_ref1 = &x;
+        let x_ref2 = &mut x; // error: cannot borrow `x` as mutable because it is also borrowed as immutable
+        println!("x_ref1 = {}", x_ref1);
