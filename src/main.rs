@@ -1,4 +1,5 @@
 #![feature(test)]
+use core::f64;
 use std::{thread, time};
 extern crate test;
 
@@ -23,6 +24,40 @@ fn print_type_of<T>(_: T) {
 }
 
 fn main() {
+    let mut result: bool = true;
+    let x: i32 = 2;
+    let xf: f64 = x as f64;
+    let place = xf.log10().floor() as i32 + 1; // Ex. 121 place = 3, 10 place = 2, 5 place = 1
+    if x < 0 {
+        // can't be palindrome
+        result = false;
+    } else {
+        if place == 1 {
+            // always palindrome
+            result = true;
+        }
+        for i in 1..=place / 2 {
+            let min: i64;
+            let max: i64;
+            if i == 1 {
+                //first pair (max place & unit place)
+                min = (x % 10) as i64; // unit
+                max = ((x as i64 % i64::pow(10, place as u32)) / i64::pow(10, (place - 1) as u32)) as i64;
+            // max place
+            } else {
+                // next pair (max place - i & unit place + 1)
+                min = ((x % i32::pow(10, i as u32)) / i32::pow(10, (i - 1) as u32)) as i64;
+                max = ((x as i64 % i64::pow(10, (place - i + 1) as u32))
+                / i64::pow(10, (place - i + 1 - 1) as u32)) as i64;
+            }
+            if min != max {
+                result = false;
+                break;
+            }
+        }
+    }
+    println!("result : {} {}", result, place);
+
     let slice = "Hello!";
     println!(
         "{} is {} bytes and also {} characters.",
@@ -208,7 +243,6 @@ fn main() {
     println!("Example enum2: {:?}", example_enum2);
 
     let mut example_vector: Vec<i32> = vec![1, 2, 3, 4, 5];
-    println!("Example Vector: {:?}", example_vector);
     println!("First element: {}", example_vector[0]);
     println!("Last element: {}", example_vector[example_vector.len() - 1]);
     println!("Length: {}", example_vector.len());
