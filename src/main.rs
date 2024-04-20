@@ -23,7 +23,78 @@ fn print_type_of<T>(_: T) {
     println!("{}", std::any::type_name::<T>())
 }
 
+fn roman_to_integer(roman: &str) -> i32 {
+    let mut result = 0;
+    let mut prev_value:&i32 = &0;
+
+    let mut roman_hashmap: HashMap<char, i32> = HashMap::new();
+    roman_hashmap.insert('I', 1);
+    roman_hashmap.insert('V', 5);
+    roman_hashmap.insert('X', 10);
+    roman_hashmap.insert('L', 50);
+    roman_hashmap.insert('C', 100);
+    roman_hashmap.insert('D', 500);
+    roman_hashmap.insert('M', 1000);
+
+    for c in roman.chars().rev() {
+        println!("{}", c);
+        let value = roman_hashmap.get(&c).unwrap();
+
+        if value < prev_value {
+            result -= value;
+        } else {
+            result += value;
+        }
+
+        prev_value = value;
+    }
+
+    result
+}
+
 fn main() {
+    let mut result:String = String::from("");
+    let strs = ["flower","flow","flight"];
+    // find longest str
+    let mut max_string:&str = "";
+    let mut max:i32 = 0;
+    let mut str_hashmap: HashMap<&str, &str> = HashMap::new();
+    for s in strs.iter() {
+        str_hashmap.insert(s, s);
+        if s.len() as i32 > max {
+            max_string = s;
+            max = s.len() as i32;
+        }
+    }
+    str_hashmap.remove(max_string); // don't check it's self
+
+    //loop max_string
+    for (index, i) in max_string.chars().enumerate() {
+        let mut is_match = true;
+        str_hashmap.iter().for_each(|(k, _)| {
+            let _char = k.chars().nth(index);
+            if _char.is_none() { //check if index out of range
+                is_match = false;
+                return;
+            }
+            if _char.unwrap() != i { //check char at index
+                is_match = false;
+                return;
+            }
+        });
+        if is_match { //if all str match add to result
+            result.push(i);
+        } else {
+            break;
+        }
+    }
+    println!("{} {} : result = {}", max_string, max, result);
+
+
+    let roman_numeral = "XLII";
+    let integer = roman_to_integer(roman_numeral);
+    println!("Roman Numeral: {}, Integer: {}", roman_numeral, integer);
+
     let mut result: bool = true;
     let x: i32 = 2;
     let xf: f64 = x as f64;
